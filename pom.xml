@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>io.streamthoughts</groupId>
+    <artifactId>azkarra-streaming-count</artifactId>
+    <version>1.0</version>
+
+    <properties>
+        <kafka.streams.version>2.5.0</kafka.streams.version>
+        <azkarra.version>0.7.2</azkarra.version>
+        <log4j.version>2.12.1</log4j.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+    </properties>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>2.4.0</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>dockerBuild</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <to>
+                        <image>streaming-word-count</image>
+                    </to>
+                    <from>
+                        <image>docker://streamthoughts/azkarra-streams-worker:0.7.2</image>
+                    </from>
+                    <containerizingMode>packaged</containerizingMode>
+                    <container>
+                        <entrypoint>INHERIT</entrypoint>
+                        <appRoot>/usr/share/azkarra-components/app</appRoot>
+                        <creationTime>USE_CURRENT_TIMESTAMP</creationTime>
+                        <environment>
+                            <AZKARRA_COMPONENT_PATHS>/usr/share/azkarra-components</AZKARRA_COMPONENT_PATHS>
+                        </environment>
+                    </container>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <release>11</release>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.apache.kafka</groupId>
+            <artifactId>kafka-streams</artifactId>
+            <version>${kafka.streams.version}</version>
+            <!-- Kafka Streams is already provided by AzkarraWorker Docker image -->
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.streamthoughts</groupId>
+            <artifactId>azkarra-api</artifactId>
+            <version>${azkarra.version}</version>
+            <!-- AzkarraAPI is already provided by AzkarraWorker Docker image -->
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+</project>
