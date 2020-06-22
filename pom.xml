@@ -10,11 +10,18 @@
 
     <properties>
         <kafka.streams.version>2.5.0</kafka.streams.version>
-        <azkarra.version>0.7.2</azkarra.version>
+        <azkarra.version>0.7.3</azkarra.version>
         <log4j.version>2.12.1</log4j.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>http://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 
     <build>
         <resources>
@@ -41,7 +48,7 @@
                         <image>streaming-word-count</image>
                     </to>
                     <from>
-                        <image>docker://streamthoughts/azkarra-streams-worker:0.7.2</image>
+                        <image>docker://streamthoughts/azkarra-streams-worker:0.7.3</image>
                     </from>
                     <containerizingMode>packaged</containerizingMode>
                     <container>
@@ -71,7 +78,7 @@
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka-streams</artifactId>
             <version>${kafka.streams.version}</version>
-            <!-- Kafka Streams is already provided by AzkarraWorker Docker image -->
+            <!-- Kafka Streams is already provided by Azkarra Worker Docker image -->
             <scope>provided</scope>
         </dependency>
 
@@ -79,7 +86,7 @@
             <groupId>io.streamthoughts</groupId>
             <artifactId>azkarra-api</artifactId>
             <version>${azkarra.version}</version>
-            <!-- AzkarraAPI is already provided by AzkarraWorker Docker image -->
+            <!-- AzkarraAPI is already provided by Azkarra Worker Docker image -->
             <scope>provided</scope>
         </dependency>
     </dependencies>
